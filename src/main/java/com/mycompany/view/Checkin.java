@@ -8,8 +8,13 @@ package com.mycompany.view;
 import com.mycompany.classes.Hospede;
 import com.mycompany.classes.Quarto;
 import com.mycompany.connection.InserirDAO;
+import java.text.ParseException;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -28,7 +33,7 @@ public class Checkin extends javax.swing.JFrame {
         Table_QuartosLivres.setRowSorter(new TableRowSorter(modeloQ));
 
         LertableHospedes();
-        
+
     }
 
     /**
@@ -59,6 +64,7 @@ public class Checkin extends javax.swing.JFrame {
         TextField_NumeroQuarto = new javax.swing.JTextField();
         TextField_IdHospede = new javax.swing.JTextField();
         Button_SalvarCheckin = new javax.swing.JButton();
+        TextFieldData = new javax.swing.JFormattedTextField();
 
         jLabel3.setText("jLabel3");
 
@@ -163,6 +169,13 @@ public class Checkin extends javax.swing.JFrame {
             }
         });
 
+        TextFieldData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        TextFieldData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextFieldDataActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -189,7 +202,9 @@ public class Checkin extends javax.swing.JFrame {
                             .addComponent(TextField_IdHospede, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(62, 62, 62)
-                        .addComponent(Button_SalvarCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(TextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Button_SalvarCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
@@ -229,8 +244,13 @@ public class Checkin extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(38, 38, 38)
-                .addComponent(Label_TabelaQuatosL)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(Label_TabelaQuatosL))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(TextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -252,7 +272,7 @@ public class Checkin extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 5, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -292,21 +312,24 @@ public class Checkin extends javax.swing.JFrame {
         int idHospede;
         numeroQuarto = Integer.parseInt(TextField_NumeroQuarto.getText());
         idHospede = Integer.parseInt(TextField_IdHospede.getText());
-        dao.updateCheckin(numeroQuarto,idHospede);
-       
+        dao.updateCheckin(numeroQuarto, idHospede);
     }//GEN-LAST:event_Button_SalvarCheckinActionPerformed
 
     private void RadioSimplesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RadioSimplesMouseClicked
-        if(RadioSimples.isSelected()){
-        LertableQuartosSimples();
+        if (RadioSimples.isSelected()) {
+            LertableQuartosSimples();
         }
     }//GEN-LAST:event_RadioSimplesMouseClicked
 
     private void RadioPremiumMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RadioPremiumMouseClicked
-        if(RadioPremium.isSelected()){
+        if (RadioPremium.isSelected()) {
             LertableQuartosPremium();
         }
     }//GEN-LAST:event_RadioPremiumMouseClicked
+
+    private void TextFieldDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldDataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextFieldDataActionPerformed
 
     public void LertableHospedes() {
         DefaultTableModel modelo = (DefaultTableModel) Table_HospedesCadastrados.getModel();
@@ -328,7 +351,7 @@ public class Checkin extends javax.swing.JFrame {
         InserirDAO dao = new InserirDAO();
         String tipoQuarto = "Simples";
         for (Quarto q : dao.readQuartos()) {
-            if (q.getStatus() == 0 && q.getTipodeQuarto()==0) {
+            if (q.getStatus() == 0 && q.getTipodeQuarto() == 0) {
                 modeloQ.addRow(new Object[]{
                     q.getNumeroQuarto(),
                     tipoQuarto,
@@ -338,7 +361,7 @@ public class Checkin extends javax.swing.JFrame {
             }
         }
     }
-    
+
     public void LertableQuartosPremium() {
         DefaultTableModel modeloQ = (DefaultTableModel) Table_QuartosLivres.getModel();
         modeloQ.setNumRows(0);
@@ -402,6 +425,7 @@ public class Checkin extends javax.swing.JFrame {
     private javax.swing.JRadioButton RadioSimples;
     private javax.swing.JTable Table_HospedesCadastrados;
     private javax.swing.JTable Table_QuartosLivres;
+    private javax.swing.JFormattedTextField TextFieldData;
     private javax.swing.JTextField TextField_IdHospede;
     private javax.swing.JTextField TextField_NumeroQuarto;
     private javax.swing.JLabel jLabel1;

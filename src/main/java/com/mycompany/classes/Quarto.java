@@ -9,6 +9,7 @@ package com.mycompany.classes;
  * @author User
  */
 public class Quarto {
+
     private Integer numeroQuarto;
     private Integer qtd_Pessoa;
     private Integer qtd_Cama;
@@ -49,8 +50,6 @@ public class Quarto {
     public Integer getHospede_Atual() {
         return hospede_Atual;
     }
-    
-    
 
     public void setNumeroQuarto(Integer numeroQuarto) {
         this.numeroQuarto = numeroQuarto;
@@ -83,8 +82,4 @@ public class Quarto {
     public void setHospede_Atual(Integer hospede_Atual) {
         this.hospede_Atual = hospede_Atual;
     }
-    
-    
-    
-    
 }

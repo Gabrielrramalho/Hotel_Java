@@ -206,36 +206,36 @@ public class menuHotel extends javax.swing.JFrame {
 
     private void LabelFazerchekinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelFazerchekinMouseClicked
         InserirDAO dao = new InserirDAO();
-                List<Quarto> quartos = new ArrayList<>();
-                Quarto quarto = new Quarto();
-                int i;
-                quartos = dao.readQuartos();
-                if (quartos.isEmpty()) {
-                    for (i = 0; i < 16; i++) {
-                        quarto.setNumeroQuarto(i + 1);
-                        quarto.setQtd_Pessoa(0);
-                        quarto.setQtd_Cama(2);
-                        quarto.setDiaria(200);
-                        quarto.setCama_casal("sim");
-                        quarto.setStatus(0);
-                        quarto.setTipodeQuarto(0);
-                        quarto.setHospede_Atual(0);
-                        dao.cretae(quarto);
-                    }
-                    for (i = 15; i < 31; i++) {
-                        quarto.setNumeroQuarto(i + 1);
-                        quarto.setQtd_Pessoa(0);
-                        quarto.setQtd_Cama(2);
-                        quarto.setDiaria(200);
-                        quarto.setCama_casal("sim");
-                        quarto.setStatus(0);
-                        quarto.setTipodeQuarto(1);
-                        quarto.setHospede_Atual(0);
-                        dao.cretae(quarto);
-                    }
-                }
+        List<Quarto> quartos = new ArrayList<>();
+        Quarto quarto = new Quarto();
+        int i;
+        quartos = dao.readQuartos();
+        if (quartos.isEmpty()) {
+            for (i = 0; i < 16; i++) {
+                quarto.setNumeroQuarto(i + 1);
+                quarto.setQtd_Pessoa(0);
+                quarto.setQtd_Cama(2);
+                quarto.setDiaria(200);
+                quarto.setCama_casal("sim");
+                quarto.setStatus(0);
+                quarto.setTipodeQuarto(0);
+                quarto.setHospede_Atual(0);
+                dao.cretae(quarto);
+            }
+            for (i = 15; i < 31; i++) {
+                quarto.setNumeroQuarto(i + 1);
+                quarto.setQtd_Pessoa(0);
+                quarto.setQtd_Cama(2);
+                quarto.setDiaria(200);
+                quarto.setCama_casal("sim");
+                quarto.setStatus(0);
+                quarto.setTipodeQuarto(1);
+                quarto.setHospede_Atual(0);
+                dao.cretae(quarto);
+            }
+        }
         new Checkin().setVisible(true);
-        
+
     }//GEN-LAST:event_LabelFazerchekinMouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
@@ -243,24 +243,25 @@ public class menuHotel extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-       new CheckOut().setVisible(true);
+        new CheckOut().setVisible(true);
     }//GEN-LAST:event_jLabel3MouseClicked
 
-    public void lerTableOcupados(){
-    DefaultTableModel modelo = (DefaultTableModel) Table_ocupados.getModel();
-    modelo.setRowCount(0);
-    InserirDAO dao = new InserirDAO();
-    for(Quarto q: dao.readQuartos()){
-       if(q.getStatus() == 1){
-       modelo.addRow(new Object[]{
-       q.getNumeroQuarto(),
-           q.getQtd_Pessoa(),
-           q.getHospede_Atual()
-           
-       });
-       }
+    public void lerTableOcupados() {
+        DefaultTableModel modelo = (DefaultTableModel) Table_ocupados.getModel();
+        modelo.setRowCount(0);
+        InserirDAO dao = new InserirDAO();
+        for (Quarto q : dao.readQuartos()) {
+            if (q.getStatus() == 1) {
+                modelo.addRow(new Object[]{
+                    q.getNumeroQuarto(),
+                    q.getQtd_Pessoa(),
+                    q.getHospede_Atual()
+
+                });
+            }
+        }
     }
-    }
+
     /**
      * @param args the command line arguments
      */
@@ -268,9 +269,9 @@ public class menuHotel extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
+
                 new menuHotel().setVisible(true);
-                
+
             }
         });
     }

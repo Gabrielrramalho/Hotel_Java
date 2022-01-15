@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,12 +26,16 @@ public class InserirDAO {
     public void create(Hospede h) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
+        java.sql.Date dtI = new java.sql.Date(h.getData_Entrega_Quarto().getTime());
+        java.sql.Date dtF = new java.sql.Date(h.getData_Saida_Quarto().getTime());
         try {
-            stmt = con.prepareStatement("INSERT INTO hospede(nome,cpf,qtd_Dias,qtd_Acompanhantes)VALUES(?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO hospede(nome,cpf,qtd_Dias,qtd_Acompanhantes,data_inicial,data_Final)VALUES(?,?,?,?,?,?)");
             stmt.setString(1, h.getNome());
             stmt.setString(2, h.getCpf());
             stmt.setInt(3, h.getQtd_Dias());
             stmt.setInt(4, h.getQtd_Acompanhantes());
+            stmt.setDate(5, dtI);
+            stmt.setDate(6, dtF);
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Salvo com sucesso");
         } catch (SQLException ex) {
@@ -54,27 +59,33 @@ public class InserirDAO {
             stmt.setString(5, q.getCama_casal());
             stmt.setInt(6, q.getStatus());
             stmt.setInt(7, q.getTipodeQuarto());
-            stmt.executeUpdate();   
+            stmt.executeUpdate();
         } catch (SQLException ex) {
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
-    
-    public void updateCheckin( int id,int idHospede) {
+
+    public void updateCheckin(int id, int idHospede) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
+        Quarto quarto = new Quarto();
         int qtd_Pessoas = 0;
-        for(Hospede h: readHospedes()){
-        if(h.getId() == idHospede){
-        qtd_Pessoas = h.getQtd_Acompanhantes();
+        for (Hospede h : readHospedes()) {
+            if (h.getId() == idHospede) {
+                qtd_Pessoas = h.getQtd_Acompanhantes();
+            }
         }
+        for (Quarto q : readQuartos()) {
+            if (q.getNumeroQuarto() == id) {
+                quarto = q;
+            }
         }
         try {
             stmt = con.prepareStatement("UPDATE quarto SET qtd_Pessoa = ?,status = ?,hospede_Atual = ? WHERE numero_Quarto = ?");
             stmt.setInt(1, qtd_Pessoas);
             stmt.setInt(2, 1);
-            stmt.setInt(3,idHospede);
+            stmt.setInt(3, idHospede);
             stmt.setInt(4, id);
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Checkin Completo..");
@@ -84,9 +95,8 @@ public class InserirDAO {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
-    
-    
-    public void updateCheckout( int id) {
+
+    public void updateCheckout(int id) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         int qtd_Pessoas = 0;
@@ -103,8 +113,6 @@ public class InserirDAO {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
-    
-    
 
     List<Hospede> hospedes = new ArrayList<>();
 
@@ -141,22 +149,22 @@ public class InserirDAO {
         try {
             stmt = con.prepareStatement("SELECT * FROM quarto");
             rs = stmt.executeQuery();
-            while(rs.next()){
-            Quarto quarto = new Quarto();
-            quarto.setNumeroQuarto(rs.getInt("numero_Quarto"));
-            quarto.setQtd_Pessoa(rs.getInt("qtd_Pessoa"));
-            quarto.setQtd_Cama(rs.getInt("qtd_Cama"));
-            quarto.setDiaria(rs.getDouble("diaria"));
-            quarto.setCama_casal(rs.getString("cama_Casal"));
-            quarto.setStatus(rs.getInt("status"));
-            quarto.setTipodeQuarto(rs.getInt("tipodeQuarto"));
-            quarto.setHospede_Atual(rs.getInt("hospede_Atual"));
-            quartos.add(quarto);
+            while (rs.next()) {
+                Quarto quarto = new Quarto();
+                quarto.setNumeroQuarto(rs.getInt("numero_Quarto"));
+                quarto.setQtd_Pessoa(rs.getInt("qtd_Pessoa"));
+                quarto.setQtd_Cama(rs.getInt("qtd_Cama"));
+                quarto.setDiaria(rs.getDouble("diaria"));
+                quarto.setCama_casal(rs.getString("cama_Casal"));
+                quarto.setStatus(rs.getInt("status"));
+                quarto.setTipodeQuarto(rs.getInt("tipodeQuarto"));
+                quarto.setHospede_Atual(rs.getInt("hospede_Atual"));
+                quartos.add(quarto);
             }
         } catch (SQLException ex) {
             Logger.getLogger(InserirDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-        ConnectionFactory.closeConection(con, stmt, rs);
+        } finally {
+            ConnectionFactory.closeConection(con, stmt, rs);
         }
         return quartos;
     }
