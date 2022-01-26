@@ -25,7 +25,7 @@ public class CadastroHospede extends javax.swing.JFrame {
      */
     public CadastroHospede() {
         initComponents();
-        
+
     }
 
     /**
@@ -51,6 +51,7 @@ public class CadastroHospede extends javax.swing.JFrame {
         FieldDataInicial = new javax.swing.JFormattedTextField();
         FieldDataFinal = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -102,6 +103,11 @@ public class CadastroHospede extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        FieldDataInicial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FieldDataInicialActionPerformed(evt);
+            }
+        });
 
         try {
             FieldDataFinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -109,7 +115,11 @@ public class CadastroHospede extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        jLabel6.setText("jLabel6");
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel6.setText("Data Chegada:");
+
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel7.setText("Data Saida:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -139,16 +149,17 @@ public class CadastroHospede extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(Field_NumeroAcompanhantes, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(FieldDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(71, 71, 71)
-                                .addComponent(FieldDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(Button_Salvar)
-                            .addComponent(Field_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Button_Salvar)
+                                    .addComponent(Field_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(FieldDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel6)))
+                                .addGap(17, 17, 17)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(FieldDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,9 +182,11 @@ public class CadastroHospede extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Field_NumeroAcompanhantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(FieldDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(FieldDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -213,10 +226,10 @@ public class CadastroHospede extends javax.swing.JFrame {
         Hospede h = new Hospede();
         InserirDAO dao = new InserirDAO();
         String dataInicialS = new String("");
-        String dataFinalS= new String("");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        Date dataInicial,DataFinal;
-        
+        String dataFinalS = new String("");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date dataInicial, DataFinal;
+
         h.setNome(Field_NomeCadastro.getText());
         h.setCpf(Field_cpf.getText());
         h.setQtd_Dias(Integer.parseInt(Field_DiasHospedado.getText()));
@@ -226,17 +239,19 @@ public class CadastroHospede extends javax.swing.JFrame {
         try {
             dataInicial = sdf.parse(dataInicialS);
             DataFinal = sdf.parse(dataFinalS);
-            java.sql.Date dtI = new java.sql.Date(dataInicial.getTime());
-             java.sql.Date dtF = new java.sql.Date(DataFinal.getTime());
-            h.setData_Entrega_Quarto(dtI);
-            h.setData_Saida_Quarto(dtF);
+            h.setData_Entrega_Quarto(dataInicial);
+            h.setData_Saida_Quarto(DataFinal);
         } catch (ParseException ex) {
             Logger.getLogger(CadastroHospede.class.getName()).log(Level.SEVERE, null, ex);
         }
         dao.create(h);
-        
+
 
     }//GEN-LAST:event_Button_SalvarActionPerformed
+
+    private void FieldDataInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldDataInicialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FieldDataInicialActionPerformed
 
     /**
      * @param args the command line arguments
@@ -290,6 +305,7 @@ public class CadastroHospede extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

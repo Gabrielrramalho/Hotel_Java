@@ -5,8 +5,10 @@
  */
 package com.mycompany.view;
 
+import com.mycompany.classes.Hospede;
 import com.mycompany.classes.Quarto;
 import com.mycompany.connection.InserirDAO;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -119,17 +121,17 @@ public class menuHotel extends javax.swing.JFrame {
 
         Table_ocupados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "N° Quarto", "N° Pessoas", "ID Hospede Atual"
+                "N° Quarto", "N° Pessoas", "ID Hospede Atual", "Data Chegada"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -250,15 +252,23 @@ public class menuHotel extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) Table_ocupados.getModel();
         modelo.setRowCount(0);
         InserirDAO dao = new InserirDAO();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String Datarecebida = new String("");
         for (Quarto q : dao.readQuartos()) {
+            for (Hospede h : dao.readHospedes()) {
+                if (h.getId() == q.getHospede_Atual()) {
+                    Datarecebida = sdf.format(h.getData_Entrega_Quarto());
+                }
+            }
             if (q.getStatus() == 1) {
                 modelo.addRow(new Object[]{
                     q.getNumeroQuarto(),
                     q.getQtd_Pessoa(),
-                    q.getHospede_Atual()
-
+                    q.getHospede_Atual(),
+                    Datarecebida
                 });
             }
+
         }
     }
 
@@ -274,6 +284,7 @@ public class menuHotel extends javax.swing.JFrame {
 
             }
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -4,7 +4,6 @@
  */
 package com.mycompany.classes;
 
-
 import java.util.Date;
 
 /**

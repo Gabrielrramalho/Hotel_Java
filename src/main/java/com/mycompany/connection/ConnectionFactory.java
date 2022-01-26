@@ -23,7 +23,7 @@ public class ConnectionFactory {
     private static final String USER = "root";
     private static final String PASSWORD = "Amominhamae16";
 
-    public  static Connection getConnection() {
+    public static Connection getConnection() {
         try {
             Class.forName(DRIVER);
 
@@ -56,17 +56,16 @@ public class ConnectionFactory {
             Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static void closeConection(Connection con, PreparedStatement stmt,ResultSet rs) {
-        closeConnection(con,stmt);
-        try{
-        if(rs!= null){
-        rs.close();
-        }
+
+    public static void closeConection(Connection con, PreparedStatement stmt, ResultSet rs) {
+        closeConnection(con, stmt);
+        try {
+            if (rs != null) {
+                rs.close();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 
 }

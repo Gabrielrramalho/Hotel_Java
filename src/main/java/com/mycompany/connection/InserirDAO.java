@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -129,6 +128,7 @@ public class InserirDAO {
                 hospede.setNome(rs.getString("nome"));
                 hospede.setQtd_Dias(rs.getInt("qtd_Dias"));
                 hospede.setQtd_Acompanhantes(rs.getInt("qtd_Acompanhantes"));
+                hospede.setData_Entrega_Quarto(rs.getDate("data_inicial"));
                 hospedes.add(hospede);
             }
         } catch (SQLException ex) {

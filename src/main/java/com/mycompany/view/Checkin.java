@@ -64,7 +64,6 @@ public class Checkin extends javax.swing.JFrame {
         TextField_NumeroQuarto = new javax.swing.JTextField();
         TextField_IdHospede = new javax.swing.JTextField();
         Button_SalvarCheckin = new javax.swing.JButton();
-        TextFieldData = new javax.swing.JFormattedTextField();
 
         jLabel3.setText("jLabel3");
 
@@ -169,13 +168,6 @@ public class Checkin extends javax.swing.JFrame {
             }
         });
 
-        TextFieldData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-        TextFieldData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextFieldDataActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -202,9 +194,7 @@ public class Checkin extends javax.swing.JFrame {
                             .addComponent(TextField_IdHospede, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(62, 62, 62)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(TextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Button_SalvarCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(Button_SalvarCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
@@ -244,13 +234,8 @@ public class Checkin extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(Label_TabelaQuatosL))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(TextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(49, 49, 49)
+                .addComponent(Label_TabelaQuatosL)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -326,10 +311,6 @@ public class Checkin extends javax.swing.JFrame {
             LertableQuartosPremium();
         }
     }//GEN-LAST:event_RadioPremiumMouseClicked
-
-    private void TextFieldDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldDataActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TextFieldDataActionPerformed
 
     public void LertableHospedes() {
         DefaultTableModel modelo = (DefaultTableModel) Table_HospedesCadastrados.getModel();
@@ -425,7 +406,6 @@ public class Checkin extends javax.swing.JFrame {
     private javax.swing.JRadioButton RadioSimples;
     private javax.swing.JTable Table_HospedesCadastrados;
     private javax.swing.JTable Table_QuartosLivres;
-    private javax.swing.JFormattedTextField TextFieldData;
     private javax.swing.JTextField TextField_IdHospede;
     private javax.swing.JTextField TextField_NumeroQuarto;
     private javax.swing.JLabel jLabel1;
