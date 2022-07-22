@@ -5,12 +5,17 @@
  */
 package com.mycompany.view;
 
-import com.mycompany.classes.Hospede;
 import com.mycompany.classes.Quarto;
 import com.mycompany.connection.InserirDAO;
-import java.text.SimpleDateFormat;
+import java.awt.Color;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
+import static javax.swing.SwingConstants.CENTER;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -28,6 +33,11 @@ public class menuHotel extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) Table_ocupados.getModel();
         Table_ocupados.setRowSorter(new TableRowSorter(modelo));
         lerTableOcupados();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
+        alinhaLabel_Table(0);
+        alinhaLabel_Table(1);
+        alinhaLabel_Table(2);
     }
 
     /**
@@ -39,20 +49,22 @@ public class menuHotel extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        Panel_menu = new javax.swing.JPanel();
         panel1 = new java.awt.Panel();
         jLabel2 = new javax.swing.JLabel();
-        LabelCadastro = new javax.swing.JLabel();
-        LabelFazerchekin = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        labelFazerCheckin = new java.awt.Label();
+        labelFazerCheckout = new java.awt.Label();
+        labelCadastraHospede = new java.awt.Label();
         ScrollPane_ocupados = new javax.swing.JScrollPane();
         Table_ocupados = new javax.swing.JTable();
         Label_Ocupados = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
+        Panel_menu.setBackground(new java.awt.Color(102, 102, 102));
 
         panel1.setBackground(new java.awt.Color(0, 0, 0));
         panel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -63,30 +75,48 @@ public class menuHotel extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Hotel");
 
-        LabelCadastro.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
-        LabelCadastro.setForeground(new java.awt.Color(255, 255, 153));
-        LabelCadastro.setText("Cadastrar Hospede");
-        LabelCadastro.addMouseListener(new java.awt.event.MouseAdapter() {
+        labelFazerCheckin.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        labelFazerCheckin.setForeground(new java.awt.Color(255, 255, 153));
+        labelFazerCheckin.setText("Fazer checkIn");
+        labelFazerCheckin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                LabelCadastroMouseClicked(evt);
+                labelFazerCheckinMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelFazerCheckinMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                labelFazerCheckinMouseExited(evt);
             }
         });
 
-        LabelFazerchekin.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        LabelFazerchekin.setForeground(new java.awt.Color(255, 255, 153));
-        LabelFazerchekin.setText("Fazer checkIn");
-        LabelFazerchekin.addMouseListener(new java.awt.event.MouseAdapter() {
+        labelFazerCheckout.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        labelFazerCheckout.setForeground(new java.awt.Color(255, 255, 153));
+        labelFazerCheckout.setText("Fazer checkOut");
+        labelFazerCheckout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                LabelFazerchekinMouseClicked(evt);
+                labelFazerCheckoutMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelFazerCheckoutMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                labelFazerCheckoutMouseExited(evt);
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 153));
-        jLabel3.setText("Fazer checkOut");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        labelCadastraHospede.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        labelCadastraHospede.setForeground(new java.awt.Color(255, 255, 153));
+        labelCadastraHospede.setText("Cadastrar Hospede");
+        labelCadastraHospede.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
+                labelCadastraHospedeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelCadastraHospedeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                labelCadastraHospedeMouseExited(evt);
             }
         });
 
@@ -94,53 +124,62 @@ public class menuHotel extends javax.swing.JFrame {
         panel1.setLayout(panel1Layout);
         panel1Layout.setHorizontalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelFazerCheckin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(LabelCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-            .addGroup(panel1Layout.createSequentialGroup()
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LabelFazerchekin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap(135, Short.MAX_VALUE))
+            .addComponent(labelFazerCheckout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelCadastraHospede, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(96, 96, 96)
-                .addComponent(LabelCadastro)
-                .addGap(26, 26, 26)
-                .addComponent(LabelFazerchekin)
+                .addGap(135, 135, 135)
+                .addComponent(labelFazerCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addContainerGap(246, Short.MAX_VALUE))
+                .addComponent(labelFazerCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(labelCadastraHospede, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        Table_ocupados.setBackground(new java.awt.Color(155, 155, 155));
         Table_ocupados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "N° Quarto", "N° Pessoas", "ID Hospede Atual", "Data Chegada"
+                "N° Quarto", "N° Pessoas", "ID Hospede Atual"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
+        Table_ocupados.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Table_ocupados.setDragEnabled(true);
+        Table_ocupados.setEnabled(false);
+        Table_ocupados.setGridColor(new java.awt.Color(0, 0, 0));
+        Table_ocupados.setShowGrid(true);
+        Table_ocupados.setShowVerticalLines(false);
         ScrollPane_ocupados.setViewportView(Table_ocupados);
+        if (Table_ocupados.getColumnModel().getColumnCount() > 0) {
+            Table_ocupados.getColumnModel().getColumn(0).setHeaderValue("N° Quarto");
+            Table_ocupados.getColumnModel().getColumn(1).setHeaderValue("N° Pessoas");
+            Table_ocupados.getColumnModel().getColumn(2).setHeaderValue("ID Hospede Atual");
+        }
 
-        Label_Ocupados.setFont(new java.awt.Font("Arial", 1, 30)); // NOI18N
+        Label_Ocupados.setFont(new java.awt.Font("Arial", 1, 35)); // NOI18N
         Label_Ocupados.setText("Quartos ocupados");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -152,61 +191,83 @@ public class menuHotel extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel4.setText("x");
+        jLabel4.setToolTipText("");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout Panel_menuLayout = new javax.swing.GroupLayout(Panel_menu);
+        Panel_menu.setLayout(Panel_menuLayout);
+        Panel_menuLayout.setHorizontalGroup(
+            Panel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Panel_menuLayout.createSequentialGroup()
                 .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(ScrollPane_ocupados, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(129, 129, 129)
+                .addGroup(Panel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Panel_menuLayout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(ScrollPane_ocupados))
+                    .addGroup(Panel_menuLayout.createSequentialGroup()
+                        .addGap(264, 264, 264)
                         .addComponent(Label_Ocupados)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 246, Short.MAX_VALUE))
+                    .addGroup(Panel_menuLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGroup(Panel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_menuLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addContainerGap())))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+        Panel_menuLayout.setVerticalGroup(
+            Panel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Panel_menuLayout.createSequentialGroup()
+                .addComponent(jLabel4)
+                .addGap(20, 20, 20)
                 .addComponent(Label_Ocupados)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ScrollPane_ocupados, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(53, 53, 53)
+                .addComponent(ScrollPane_ocupados, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(47, 47, 47))
+            .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Panel_menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Panel_menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void LabelCadastroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelCadastroMouseClicked
-        new CadastroHospede().setVisible(true);
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        lerTableOcupados();
+    }//GEN-LAST:event_jLabel1MouseClicked
 
-    }//GEN-LAST:event_LabelCadastroMouseClicked
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabel4MouseClicked
 
-    private void LabelFazerchekinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelFazerchekinMouseClicked
+    private void labelFazerCheckinMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFazerCheckinMouseEntered
+        labelFazerCheckin.setBackground(corbgMenu);
+    }//GEN-LAST:event_labelFazerCheckinMouseEntered
+
+    private void labelFazerCheckinMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFazerCheckinMouseExited
+        labelFazerCheckin.setBackground(Color.BLACK);
+    }//GEN-LAST:event_labelFazerCheckinMouseExited
+
+    private void labelFazerCheckinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFazerCheckinMouseClicked
         InserirDAO dao = new InserirDAO();
         List<Quarto> quartos = new ArrayList<>();
         Quarto quarto = new Quarto();
@@ -236,40 +297,57 @@ public class menuHotel extends javax.swing.JFrame {
                 dao.cretae(quarto);
             }
         }
-        new Checkin().setVisible(true);
+        new Checkin().setVisible(true);// TODO add your handling code here:
+    }//GEN-LAST:event_labelFazerCheckinMouseClicked
 
-    }//GEN-LAST:event_LabelFazerchekinMouseClicked
+    
+    Color corbgMenu = new Color(102,102,102);
+    
+    private void labelFazerCheckoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFazerCheckoutMouseEntered
+        labelFazerCheckout.setBackground(corbgMenu);
+    }//GEN-LAST:event_labelFazerCheckoutMouseEntered
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        lerTableOcupados();
-    }//GEN-LAST:event_jLabel1MouseClicked
+    private void labelFazerCheckoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFazerCheckoutMouseExited
+        labelFazerCheckout.setBackground(Color.BLACK);
+    }//GEN-LAST:event_labelFazerCheckoutMouseExited
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+    private void labelCadastraHospedeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCadastraHospedeMouseEntered
+        labelCadastraHospede.setBackground(corbgMenu);
+    }//GEN-LAST:event_labelCadastraHospedeMouseEntered
+
+    private void labelCadastraHospedeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCadastraHospedeMouseClicked
+        new CadastroHospede().setVisible(true);
+    }//GEN-LAST:event_labelCadastraHospedeMouseClicked
+
+    private void labelCadastraHospedeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCadastraHospedeMouseExited
+        labelCadastraHospede.setBackground(Color.BLACK);
+    }//GEN-LAST:event_labelCadastraHospedeMouseExited
+
+    private void labelFazerCheckoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFazerCheckoutMouseClicked
         new CheckOut().setVisible(true);
-    }//GEN-LAST:event_jLabel3MouseClicked
+    }//GEN-LAST:event_labelFazerCheckoutMouseClicked
 
     public void lerTableOcupados() {
         DefaultTableModel modelo = (DefaultTableModel) Table_ocupados.getModel();
         modelo.setRowCount(0);
         InserirDAO dao = new InserirDAO();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String Datarecebida = new String("");
         for (Quarto q : dao.readQuartos()) {
-            for (Hospede h : dao.readHospedes()) {
-                if (h.getId() == q.getHospede_Atual()) {
-                    Datarecebida = sdf.format(h.getData_Entrega_Quarto());
-                }
-            }
             if (q.getStatus() == 1) {
                 modelo.addRow(new Object[]{
                     q.getNumeroQuarto(),
                     q.getQtd_Pessoa(),
-                    q.getHospede_Atual(),
-                    Datarecebida
+                    q.getHospede_Atual()
+
                 });
             }
-
         }
+    }
+
+    public void alinhaLabel_Table(int numeroColuna) {
+        Table_ocupados.getTableHeader().setBackground(new Color(155, 155, 155));
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        Table_ocupados.getColumnModel().getColumn(numeroColuna).setCellRenderer(centralizado);
     }
 
     /**
@@ -284,19 +362,19 @@ public class menuHotel extends javax.swing.JFrame {
 
             }
         });
-
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel LabelCadastro;
-    private javax.swing.JLabel LabelFazerchekin;
     private javax.swing.JLabel Label_Ocupados;
+    private javax.swing.JPanel Panel_menu;
     private javax.swing.JScrollPane ScrollPane_ocupados;
     private javax.swing.JTable Table_ocupados;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel4;
+    private java.awt.Label labelCadastraHospede;
+    private java.awt.Label labelFazerCheckin;
+    private java.awt.Label labelFazerCheckout;
     private java.awt.Panel panel1;
     // End of variables declaration//GEN-END:variables
 }

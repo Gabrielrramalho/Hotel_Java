@@ -8,13 +8,8 @@ package com.mycompany.view;
 import com.mycompany.classes.Hospede;
 import com.mycompany.classes.Quarto;
 import com.mycompany.connection.InserirDAO;
-import java.text.ParseException;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -33,7 +28,7 @@ public class Checkin extends javax.swing.JFrame {
         Table_QuartosLivres.setRowSorter(new TableRowSorter(modeloQ));
 
         LertableHospedes();
-
+        
     }
 
     /**
@@ -234,7 +229,7 @@ public class Checkin extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(49, 49, 49)
+                .addGap(38, 38, 38)
                 .addComponent(Label_TabelaQuatosL)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -257,7 +252,7 @@ public class Checkin extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 5, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -297,17 +292,18 @@ public class Checkin extends javax.swing.JFrame {
         int idHospede;
         numeroQuarto = Integer.parseInt(TextField_NumeroQuarto.getText());
         idHospede = Integer.parseInt(TextField_IdHospede.getText());
-        dao.updateCheckin(numeroQuarto, idHospede);
+        dao.updateCheckin(numeroQuarto,idHospede);
+       
     }//GEN-LAST:event_Button_SalvarCheckinActionPerformed
 
     private void RadioSimplesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RadioSimplesMouseClicked
-        if (RadioSimples.isSelected()) {
-            LertableQuartosSimples();
+        if(RadioSimples.isSelected()){
+        LertableQuartosSimples();
         }
     }//GEN-LAST:event_RadioSimplesMouseClicked
 
     private void RadioPremiumMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RadioPremiumMouseClicked
-        if (RadioPremium.isSelected()) {
+        if(RadioPremium.isSelected()){
             LertableQuartosPremium();
         }
     }//GEN-LAST:event_RadioPremiumMouseClicked
@@ -332,7 +328,7 @@ public class Checkin extends javax.swing.JFrame {
         InserirDAO dao = new InserirDAO();
         String tipoQuarto = "Simples";
         for (Quarto q : dao.readQuartos()) {
-            if (q.getStatus() == 0 && q.getTipodeQuarto() == 0) {
+            if (q.getStatus() == 0 && q.getTipodeQuarto()==0) {
                 modeloQ.addRow(new Object[]{
                     q.getNumeroQuarto(),
                     tipoQuarto,
@@ -342,7 +338,7 @@ public class Checkin extends javax.swing.JFrame {
             }
         }
     }
-
+    
     public void LertableQuartosPremium() {
         DefaultTableModel modeloQ = (DefaultTableModel) Table_QuartosLivres.getModel();
         modeloQ.setNumRows(0);
@@ -385,6 +381,8 @@ public class Checkin extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Checkin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
